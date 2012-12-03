@@ -1,0 +1,51 @@
+{{extend 'layout.html'}}
+
+{{if(isAuthorized):}}
+
+{{if(perID):}}
+
+<!--  Individual Mash Listing Starts here -->
+<h2>{{=row.name}}</h2>
+<p><i>
+{{=row.description}}
+</i></p>
+
+<table>
+  {{rank = 1}}
+{{for row in childFaces :}}
+   <tr>
+
+     <td><img image_id="{{=row.id}}"  src="{{=URL('download',args=row.image)}}"/></td>
+     <td> <b>{{=row.name}}</b><br/>
+       <b>Won :</b> {{=row.won}}<br/>
+       <b>Lost :</b> {{=row.lost}}<br/>
+       <b>Rating :</b> {{=row.elo_rating}}<br/>
+       <b>Rank : </b> {{=rank}}{{rank+=1}}<br/>
+     </td>
+     <td><button>{{=A("Delete",_href=URL(request.controller,"/delete/"+request.args[0]+"/"+str(row.id))) }}</button></td>
+      
+     </tr>
+{{pass}}
+     </table>
+
+
+<!--Individual Mash listing Ends here -->
+
+{{else:}} 
+{{=H4(T("Mashes You Own"))}} {{=BR()}}
+<ul>
+{{for row in rows:}}
+{{=LI(B(A(row.name+" ("+str(row.num_of_images)+")",  _href=URL(request.controller,"/list/"+str(row.id)))))}}
+  <ul><li>
+    {{=I(row.description)}}
+  </ul></li>
+{{pass}}
+</ul>
+{{pass}}
+
+
+{{else:}}
+You are not authorized to View this Page
+{{pass}}
+<br/>
+<br/>

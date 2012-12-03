@@ -1,0 +1,31 @@
+{{extend 'layout.html'}}
+
+{{if(isValid):}}
+
+<script type='text/javascript'>
+$(document).ready(function(){
+$("#mySubmit").css("display","none"); // Hides the Submit Button
+$("#face1").click(function(){
+$("#mySelection").val($("#face1").attr("image_id"));
+$("#mySubmit").trigger("click");
+});
+$("#face2").click(function(){
+document.getElementById("mySelection").value = $("#face2").val()
+$("#mySelection").val($("#face2").attr("image_id"));
+$("#mySubmit").trigger("click");
+});
+});
+</script>
+<div class="container">
+<img id="face1" style="width:200px;" image_id="{{=rows[0].id}}" src="{{=URL('mash','download',args=rows[0].image)}}" />
+<img id="face2" style="width:200px;" image_id="{{=rows[1].id}}" src="{{=URL('mash','download',args=rows[1].image)}}" />
+</div>
+{{=form}}
+
+{{else:}}
+Looks like An Invalid Mash, this one !!
+
+If you are sure this is a valid link, then you should ask the
+MashCreator to add more photos. There are not enough photos for a mash
+now :(
+{{pass}}

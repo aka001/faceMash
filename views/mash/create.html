@@ -1,0 +1,19 @@
+{{extend 'layout.html'}}
+<script type='text/javascript'>
+$(document).ready(function(){
+  if(!$("#mash_is_private").attr("checked")){
+     $("#mash_is_private_password__row").css("display","none");
+  }
+
+  $("#mash_is_private").change(function(){
+console.log("fire");
+  if(!$("#mash_is_private").attr("checked")){
+     $("#mash_is_private_password__row").css("display","none");
+  }else{
+     $("#mash_is_private_password__row").css("display","table-row");
+}
+})
+
+});
+</script>
+{{=form}}
