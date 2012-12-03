@@ -11,6 +11,7 @@ db.define_table('mash',
                 Field('num_of_images','integer',default=0,readable=False, writable=False),
                 Field('is_private', 'boolean', default = False, readable = False, writable = True),
                 Field('is_private_password', 'password', readable = False, writable = True ),
+                #Field('url_handle','string', length=100, label="URL Handle", notnull=True, required=True),
                 format = '%(name)s(%(id)s)',
                 )
 

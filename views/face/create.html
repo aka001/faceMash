@@ -1,8 +1,11 @@
-{{extend 'layout.html'}}
 
 
 {{if(isAuthorized):}}
+
 {{=form}}
+
+
+<!-- {{=A("Click here to return to Mash Page",_href=URL("mash","list",args=mash_id))}} -->
 
 {{else:}}
 

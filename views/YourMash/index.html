@@ -14,12 +14,93 @@ document.getElementById("mySelection").value = $("#face2").val()
 $("#mySelection").val($("#face2").attr("image_id"));
 $("#mySubmit").trigger("click");
 });
+
+
+// Image Resize on MouseMove
+
+
+$("#FaceContainer").mousemove(function(event){
+var f1 = $("#face1").position();
+var f2 = $("#face2").position();
+var d_f1 = Math.sqrt((Math.pow(f1.left-event.pageX,2)+Math.pow(f1.top-event.pageY,2)));
+var d_f2 = Math.sqrt((Math.pow(f2.left-event.pageX,2)+Math.pow(f2.top-event.pageY,2)));
+var range = 150;
+var ratio = d_f1/d_f2;
+var d2 = range/(1+ratio);
+var d1 = range - d2;
+
+var ll = 50;
+
+if(d1<ll){
+d1=ll;
+}
+if(d2<ll){
+d2=ll;
+}
+
+$("#face1").css("width",d2+"%");
+$("#face2").css("width",d1+"%");
 });
+
+
+
+
+});
+
 </script>
-<div class="container">
-<img id="face1" style="width:200px;" image_id="{{=rows[0].id}}" src="{{=URL('mash','download',args=rows[0].image)}}" />
-<img id="face2" style="width:200px;" image_id="{{=rows[1].id}}" src="{{=URL('mash','download',args=rows[1].image)}}" />
+
+<style type='text/css'>
+#faceTable {
+width:100%;
+}
+
+#face2 , #face1 {
+cursor:pointer;
+}
+</style>
+
+<div id="FaceContainer">
+  <table id="faceTable">
+      <tr>
+	   <td>
+	     <center>
+  <div class="face" id="face1_outer" style="width:250px">
+<img id="face1" style="width:100%;" image_id="{{=rows[0].id}}" src="{{=URL('mash','download',args=rows[0].image)}}" />
+    <div class="won">
+      <b>Won : </b> {{=rows[0].won}} 
+      </div>
+      <div class="lost">
+      <b>Lost : </b> {{=rows[0].lost}}
+      </div>
+      <div class="rating">
+      <b>Rating : </b> {{=rows[0].elo_rating}}
+      </div>
+    </div>
+    </center>
+    </td>
+    <td>
+      <center>
+    <div class="face" id="face2_outer" style="width:250px">
+<img id="face2" style="width:100%;" image_id="{{=rows[1].id}}" src="{{=URL('mash','download',args=rows[1].image)}}" />
+      
+    <div class="won">
+      <b>Won : </b> {{=rows[1].won}}
+      </div>
+      <div class="lost">
+      <b>Lost : </b> {{=rows[1].lost}}
+      </div>
+      <div class="rating">
+      <b>Rating : </b> {{=rows[1].elo_rating}}
+      </div>
+      </div>
+      </center>
+      </td>
+    </tr>
+      </table>
 </div>
+
+
+
 {{=form}}
 
 {{else:}}

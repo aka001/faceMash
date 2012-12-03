@@ -42,7 +42,7 @@ def index():
     
     args = request.args
     isValid = True
-    if(len(args)==0):
+    if((len(args)>0 and args[0].isdigit())==False):
         isValid = False
         return dict(isValid = isValid)
 
@@ -56,13 +56,13 @@ def index():
     if(len(rows)!=2):
         return dict(isValid=False, mash_id=myMashId)
     else:
+        response.menu.append((T('Rank List'), False, URL('YourMash', 'rankList', args=myMashId), []))
         form = FORM(INPUT(_name="face1", value=str(rows[0].id), _type="hidden"),
                     INPUT(_name="face2", value=str(rows[1].id), _type="hidden"),
                     INPUT(_name="selection", _id="mySelection", requires=IS_NOT_EMPTY(), _type="hidden"),
                     INPUT(_type='submit', _id="mySubmit"))
 
         if form.accepts(request,session):
-            print request.vars
 
             face1 = request.vars.face1
             face2 = request.vars.face2
@@ -94,13 +94,33 @@ def index():
                 face1_row.update_record()
                 face2_row.update_record()
                     
-                
+                response.flash = "Whoz your pick !!" ##Replace this by random cheesy lines
+
         elif form.errors:
                 response.flash = "You are trying to do something funny there !! Go try that sumwhere else.."
         else:
                 response.flash = "Whoz your pick !!"
 
-        return dict(rows=rows, form=form, isValid = isValid)    
+        return dict(rows=rows, form=form, isValid = isValid)
+
+
+def rankList():
+    args = request.args
+
+    if(len(args)>0 and args[0].isdigit() ):
+        mash_id = args[0]
+        
+        #Check for private mash_id to be inserted here
+        
+        rows = db(db.face.mash_id == mash_id).select(orderby=~db.face.elo_rating)
+        
+        response.menu.append((T('Mash'), False, URL('YourMash', 'index', args=mash_id), []))
+        return dict(isValid = True, rows = rows)
+    else:
+        return dict(isValid = False)
+
+def home():
+    return dict()
     
 
         

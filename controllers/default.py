@@ -18,7 +18,11 @@ def index():
     if you need a simple wiki simple replace the two lines below with:
     return auth.wiki()
     """
-    response.flash = T("Welcome to web2py!")
+    if auth.user:
+        redirect(URL(c="mash",f="list"))
+    else:
+        redirect(URL(c="YourMash",f="home"))
+
     return dict(message=T('Hello World'))
 
 

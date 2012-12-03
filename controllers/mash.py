@@ -1,12 +1,21 @@
-
-
+@auth.requires_login()
 def create():
     """
     Function to create a new mash
     """
-    form = crud.create(db.mash)
+    def on_Accept_func(form):
+        ##Enter the mash_id to Big ID mapping into the database here
+
+        ##Look for all values in mash table which donot have a mapping in mashID_to_bigID_map table, and update them
+
+        print db.executesql("SELECT MAX(id) FROM mash")
+        
+        pass
+    
+    form = crud.create(db.mash, onaccept = on_Accept_func, message="Mash Created !! Now Add Faces to it :)")
     return dict(form = form)
 
+@auth.requires_login()
 def download():
     """
     allows downloading of uploaded files
@@ -14,6 +23,7 @@ def download():
     """
     return response.download(request, db)
 
+@auth.requires_login()
 def list():
     """
     Function to list all mashes owned by the current user
@@ -25,7 +35,9 @@ def list():
         #Case When only one mash is to be  read and shown
 
         ##Check if the User is the owner of the mash
-        row = db(db.mash.created_by==auth.user_id and db.mash.id==args[0]).select()        
+
+        mash_id = args[0]
+        row = db(db.mash.created_by==auth.user_id and db.mash.id==mash_id).select()        
         if(len(row)==0): #User doesnot have permissions to do this 
             return dict(isAuthorized = False)
         else:
@@ -36,14 +48,13 @@ def list():
             for r in row:
                 childFaces = db(db.face.mash_id==r.id).select(orderby=~db.face.elo_rating)
                         
-            return dict(isAuthorized = True, row=r, childFaces = childFaces, perID= True)
-    else:
-            return dict(isAuthorized = False)
+            return dict(isAuthorized = True, row=r, childFaces = childFaces, perID= True, mash_id = mash_id)
 
         
-    
+    response.menu.append((T('Create a Mash'), False, URL(request.application,"mash","create"), []))
+
     rows = db(db.mash.created_by==auth.user_id).select()
-    return dict(isAuthorized = True, rows=rows)
+    return dict(isAuthorized = True, rows=rows, perID = False)
 
 
     
