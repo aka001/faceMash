@@ -81,3 +81,18 @@ use_janrain(auth, filename='private/janrain.key')
 
 ## after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)
+
+##Enabling Email Verification
+auth.settings.registration_requires_verification = True
+auth.settings.registration_requires_approval = False
+auth.settings.reset_password_requires_verification = True
+auth.messages.verify_email = 'Click on the link http://' +     request.env.http_host +     URL(r=request,c='default',f='user',args=['verify_email']) +     '/%(key)s to verify your email'
+auth.messages.reset_password = 'Click on the link http://' +     request.env.http_host +     URL(r=request,c='default',f='user',args=['reset_password']) +     '/%(key)s to reset your password'
+auth.messages.email_sent = "Email Sent !! Please Verify the Email you used to register the account !!"
+##Email Verification Enabled
+
+
+##Adding Login Logout redirections
+auth.next =None
+auth.settings.login_next = URL("mash","list")
+##Login Logout redirections added
