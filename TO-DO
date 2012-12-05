@@ -1,4 +1,11 @@
 1) Add the Menu Items  #Done
 2) Style it a bit #Done
 3) Add the BigAlphanumeric ID to web2py uid mapping
-4) The javascript on the compete page, is changin size of the images like in steps. gotta make it smooth
+4) The javascript on the compete page, is changin size of the images like in steps at the beginning. gotta make it smooth
+5) Add Facebook Like and Share Button -- After hosting it somewhere ofcourse
+6) Include Google Analytics
+7) Configure Email Settings, Currently Verification Mails are not being sent ##IMP !!
+8) Report Abuse Controller and Form
+9) Log everything : Selections made on the YourMash Page, Logins, Logout, Mash Create, Image Added, Image Deleted, Mash Deleted.
+10) Resize Images on Upload ##Done..Resized to 250x250 bounding box
+11) Fix the Delete button thing on the Lists Page #Done
