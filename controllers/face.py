@@ -45,7 +45,7 @@ def create():
                 w = int(k*w)
                 h = int(box)
 
-                
+            
             im = im.resize((int(w),int(h)),Image.ANTIALIAS)
             im.save(request.folder + "uploads/" + imageName, "JPEG")
 

@@ -1,11 +1,42 @@
 1) Add the Menu Items  #Done
 2) Style it a bit #Done
-3) Add the BigAlphanumeric ID to web2py uid mapping
+3) Add the BigAlphanumeric ID to web2py uid mapping ##Let Users Select a Handle at the Time of Creation
 4) The javascript on the compete page, is changin size of the images like in steps at the beginning. gotta make it smooth
 5) Add Facebook Like and Share Button -- After hosting it somewhere ofcourse
 6) Include Google Analytics
 7) Configure Email Settings, Currently Verification Mails are not being sent ##IMP !!
-8) Report Abuse Controller and Form
+8) Report Abuse Controller and Form  ##--Should be implemented after Logs are implemented, as Log:ID would be needed in the report Abuse Form
+    **A Captcha Verified Form for every Image that appears on the rankList
+    ** A cron job to remove every verified image 
+    ** Select options to specify : Photo Uploaded without permission, Pornography
+
+    ** Policy to remove any mash with even one reported pornography instance
+
 9) Log everything : Selections made on the YourMash Page, Logins, Logout, Mash Create, Image Added, Image Deleted, Mash Deleted.
 10) Resize Images on Upload ##Done..Resized to 250x250 bounding box
 11) Fix the Delete button thing on the Lists Page #Done
+12) Make the Add New Images as AJAX Upload
+
+13) Check Pornography in an Uploaded Picture. ##Nudity Classifiers are available working on skin color in the image as parameter
+
+14) Custom Field Validator to filter profanity from the Names of Image
+
+15) Ask Sum1 to design a logo, and maybe talk about naming the mash, face concepts appropriately so that people like it
+
+16) Added comments for necessary fields
+
+17) Link Images to their facebook profiles !! Would be great for Stalkers
+
+18) Location of the Mash (On Map)
+
+19) Passwords for private mash implementation using session variables
+
+20) Count number of hits on a mash (Can be used later to count the most popular mash (or maybe the lags table can be used))
+
+21) Add the picture of the Rank 1 face as the picture of a mash, and not enuff faces default image to mashes not havin enuff faces
+
+22) Remove all mash_id dependencies and replace by mash_url_handle
+
+23) Optimise DB queries by selecting only specific columns off rows
+
+24) Mash Delete function

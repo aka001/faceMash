@@ -1,4 +1,14 @@
 {{extend 'layout.html'}}
+
+<style type='text/css'>
+.VALID{
+background-color : green !important;
+}
+.INVALID{
+background-color : red !important;
+}
+</style>
+
 <script type='text/javascript'>
 $(document).ready(function(){
   if(!$("#mash_is_private").attr("checked")){
@@ -12,9 +22,40 @@ console.log("fire");
   }else{
      $("#mash_is_private_password__row").css("display","table-row");
 }
-})
-
 });
+
+//AutoComplete Code Starts
+
+$("#mash_url_handle__row").after("<div id='ajaxresults'>");
+
+$("#mash_url_handle").attr("onkeyup","getMashUrlHandleExistence(this.value);");
+$("#mash_url_handle").attr("autocomplete","off");
+});
+
+function getMashUrlHandleExistence(urlHandle){
+ if(urlHandle!=""){
+ $.get("{{=URL('mash','ajaxMashUrlHandleSearch')}}/"+urlHandle, function(data){
+  console.log(data);
+  
+  if(data==true){
+  
+  $("#mash_url_handle").addClass("VALID");
+  $("#mash_url_handle").removeClass("INVALID");
+  
+  $("#submit_record__row .w2p_fw input").removeAttr("disabled");
+  }
+  else{
+    $("#mash_url_handle").addClass("INVALID");
+   $("#mash_url_handle").removeClass("VALID");
+    $("#submit_record__row .w2p_fw input").attr("disabled","disabled");
+
+  }
+  
+  });
+
+}
+return false;
+}
 </script>
 {{=form}}
 <br/>

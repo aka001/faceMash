@@ -10,12 +10,11 @@
 {{=row.description}}
 </i></p>
 <p>Total Number of Images in the Mash : {{=row.num_of_images}}</p>
-<b> Mash Public URL </b> : {{=A("Click Here",_href=URL("YourMash","index",args=mash_id , scheme=True, host=True))}}<br/>
+<b> Mash Public URL </b> : {{=A("Click Here",_href=URL("YourMash","index",args=mash_url_handle , scheme=True, host=True))}}<br/>
 <b> Mash Ranklist Public URL </b> :
-{{=A("Click Here",_href=URL("YourMash","rankList",args=mash_id, scheme=True, host=True))}}<br/>
+{{=A("Click Here",_href=URL("YourMash","rankList",args=mash_url_handle, scheme=True, host=True))}}<br/>
 <br/>
 
-<!-- {{=A("Add an Image to this Mash", _href=URL("face","create",args=mash_id))}}-->
 
 <script type='text/javascript'>
 $(document).ready(function(){

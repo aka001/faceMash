@@ -47,8 +47,15 @@ def list():
             ##List Images it holds with appropriate links
             for r in row:
                 childFaces = db(db.face.mash_id==r.id).select(orderby=~db.face.elo_rating)
-                        
-            return dict(isAuthorized = True, row=r, childFaces = childFaces, perID= True, mash_id = mash_id)
+
+                
+                # Obtain urlHandle for the particular mash_id
+                r = db(db.mash.id == mash_id).select().first()
+                mash_url_handle = ""
+                if r:
+                    mash_url_handle = r.url_handle
+            
+            return dict(isAuthorized = True, row=r, childFaces = childFaces, perID= True, mash_url_handle = mash_url_handle, mash_id = mash_id)
 
         
     response.menu.append((T('Create a Mash'), False, URL(request.application,"mash","create"), []))
@@ -57,5 +64,25 @@ def list():
     return dict(isAuthorized = True, rows=rows, perID = False)
 
 
+@auth.requires_login()
+def ajaxMashUrlHandleSearch():
+    response.headers['Content-Type'] = "application/json"
+    
+    partialstr = request.args
+
+    if len(partialstr)>0:
+        partialstr = partialstr[0]
+    else:
+        redirect(URL("YourMash","home"))
+    
+    query = db.mash.url_handle==partialstr
+    row = db(query).select()
+    if row:
+        return "false"
+    else:
+        return "true"
+
+        
+    
     
     

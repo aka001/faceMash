@@ -42,15 +42,26 @@ def index():
     
     args = request.args
     isValid = True
-    if((len(args)>0 and args[0].isdigit())==False):
-        isValid = False
-        return dict(isValid = isValid)
-
+    myMashId = ""
+    
+    if(len(args)>0):
+        r = db(db.mash.url_handle==args[0]).select().first()
+        if r:
+            myMashId = r.id
+        else:
+            isValid = False
+            return dict(isValid = isValid)
+        """
+    else:
+        #redirect to the Home Page
+        redirect("YourMash","home")
+        """
+    
+    
     ##Check for private mash to be done here
 
     ##Check for private mash done
 
-    myMashId = request.args[0]
     rows = db(db.face.mash_id==myMashId).select(limitby=(0,2), orderby='<random>')
         
     if(len(rows)!=2):
@@ -107,8 +118,12 @@ def index():
 def rankList():
     args = request.args
 
-    if(len(args)>0 and args[0].isdigit() ):
-        mash_id = args[0]
+    if(len(args)>0):
+        r = db(db.mash.url_handle==args[0]).select().first()
+        if r:
+            mash_id = r.id
+        else:
+            return dict(isValid = False)
         
         #Check for private mash_id to be inserted here
         

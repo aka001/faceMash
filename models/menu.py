@@ -7,7 +7,7 @@
 
 response.title = ' '.join(
     word.capitalize() for word in request.application.split('_'))
-response.subtitle = T('customize me!')
+response.subtitle = T('now everyone has one')
 
 ## read more at http://dev.w3.org/html5/markup/meta.name.html
 response.meta.author = 'S.P. Mohanty <spmohanty91@gmail.com>'
